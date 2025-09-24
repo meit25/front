@@ -51,7 +51,7 @@ export const Sidebar = ({ currentPage, setCurrentPage }) => {
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-4">
           <div className="text-sm text-gray-600 mb-2">전체 보관함</div>
           <div className="text-2xl font-bold text-gray-800">10개소</div>
-          <div className="text-xs text-gray-500 mt-1">7개 건술</div>
+          <div className="text-xs text-gray-500 mt-1">7개 건물</div>
         </div>
       </div>
     </div>
