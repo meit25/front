@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { Sidebar } from './components/layout';
 import { HomePage, ManagePage, AnalysisPage } from './components/pages';
-import { useStorageData } from './hooks';
+import { useRealTimeData } from './hooks/useRealTimeData';
+import { getTimeAgo, getConnectionStatus } from './utils/timeUtils';
+import { RefreshCw } from 'lucide-react';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [selectedBuilding, setSelectedBuilding] = useState('all');
-  const { storageData } = useStorageData();
+  
+  // 기존 useStorageData를 useRealTimeData로 변경
+  const { data: storageData, lastUpdate, isLoading, error, refresh } = useRealTimeData('/api/inventory', 30000);
 
   const filteredData = selectedBuilding === 'all' 
     ? storageData 
     : storageData.filter(item => item.building === selectedBuilding);
+
+  // 연결 상태 계산
+  const connectionStatus = getConnectionStatus(lastUpdate);
 
   const renderContent = () => {
     switch(currentPage) {
@@ -60,12 +67,36 @@ const App = () => {
                  currentPage === 'analysis' ? '데이터 분석 및 통계' : ''}
               </p>
             </div>
+            
+            {/* 실시간 상태 및 업데이트 정보 */}
             <div className="flex items-center gap-4">
-              <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                연결됨
+              {error && (
+                <div className="text-red-600 text-sm">
+                  연결 오류: {error}
+                </div>
+              )}
+              
+              {/* 동적 연결 상태 */}
+              <div className={`px-3 py-1 rounded-full text-sm font-medium ${connectionStatus.color}`}>
+                {connectionStatus.text}
               </div>
+              
+              {/* 새로고침 버튼 */}
+              <button
+                onClick={refresh}
+                disabled={isLoading}
+                className={`flex items-center gap-2 px-3 py-1 text-sm text-gray-600 hover:text-gray-800 ${
+                  isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100 rounded-lg'
+                }`}
+                title="수동으로 데이터 새로고침"
+              >
+                <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+                새로고침
+              </button>
+              
+              {/* 동적 업데이트 시간 */}
               <div className="text-sm text-gray-500">
-                마지막 업데이트: 방금 전
+                마지막 업데이트: {lastUpdate ? getTimeAgo(lastUpdate) : '정보 없음'}
               </div>
             </div>
           </div>

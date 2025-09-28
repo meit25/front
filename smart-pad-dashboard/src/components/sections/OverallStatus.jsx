@@ -35,7 +35,7 @@ export const OverallStatus = ({ storageData }) => {
       value: emptyBoxes,
       subtitle: '즉시 보충',
       icon: XCircle,
-      color: 'bg-gradient-to-br from-red-500 to-red-600',
+      color: 'bg-gradient-to-br from-gray-500 to-gray-600',
       textColor: 'text-white'
     }
   ];

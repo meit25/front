@@ -27,11 +27,12 @@ export const StorageItem = ({ storage }) => {
       <div className="mb-3">
         <div className="w-full bg-gray-100 rounded-full h-2">
           <div 
-            className={`h-2 rounded-full bg-gradient-to-r transition-all duration-500 ${
-              storage.status === 'normal' ? 'from-blue-400 to-blue-600' :
-              storage.status === 'low' ? 'from-pink-400 to-pink-600' :
-              'from-gray-400 to-gray-600'
-            }`}
+           // StorageItem.jsx에서 프로그레스바 색상
+className={`h-2 rounded-full bg-gradient-to-r transition-all duration-500 ${
+  storage.status === 'normal' ? 'from-green-400 to-green-600' :
+  storage.status === 'low' ? 'from-orange-400 to-orange-600' :
+  'from-gray-400 to-gray-600'
+}`}
             style={{ width: `${percentage}%` }}
           ></div>
         </div>

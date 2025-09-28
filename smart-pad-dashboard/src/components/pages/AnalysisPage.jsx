@@ -24,7 +24,7 @@ export const AnalysisPage = () => {
           title="긴급 보충 필요"
           value="3개소"
           subtitle="2시간 내 보충 권장"
-          gradient="from-pink-500 to-red-500"
+          gradient="from-orange-500 to-red-500"
         />
       </div>
 
