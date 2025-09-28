@@ -54,7 +54,7 @@ export const useRealTimeData = (apiUrl = '/api/inventory', refreshInterval = 300
       'Prime_1F': '프라임관',
       'Prime_3F': '프라임관',
       'Sunheon_1F': '순헌관',
-      'StudentCenter_2F': '학생회관',
+      'Student_2F': '학생회관',
       'Jinri_1F': '진리관',
       'Renaissance_1F': '르네상스홀'
     };
@@ -70,7 +70,7 @@ export const useRealTimeData = (apiUrl = '/api/inventory', refreshInterval = 300
       'Prime_1F': '1층',
       'Prime_3F': '3층',
       'Sunheon_1F': '1층',
-      'StudentCenter_2F': '2층',
+      'Student_2F': '2층',
       'Jinri_1F': '1층',
       'Renaissance_1F': '1층'
     };

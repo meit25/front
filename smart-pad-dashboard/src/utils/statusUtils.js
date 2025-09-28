@@ -4,19 +4,19 @@ export const getStatusConfig = (status) => {
   switch (status) {
     case 'normal': 
       return { 
-        color: 'from-blue-400 to-purple-500', 
+        color: 'from-green-400 to-green-600', 
         textColor: 'text-white', 
         icon: <CheckCircle className="w-6 h-6" />,
         label: '정상',
-        bgColor: 'bg-gradient-to-br from-blue-400 to-purple-500'
+        bgColor: 'bg-gradient-to-br from-green-400 to-green-600'
       };
     case 'low': 
       return { 
-        color: 'from-pink-400 to-red-400', 
+        color: 'from-orange-400 to-orange-400', 
         textColor: 'text-white', 
         icon: <AlertTriangle className="w-6 h-6" />,
         label: '부족',
-        bgColor: 'bg-gradient-to-br from-pink-400 to-red-400'
+        bgColor: 'bg-gradient-to-br from-orange-400 to-orange-600'
       };
     case 'empty': 
       return { 
