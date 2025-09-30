@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-export const useRealTimeData = (apiUrl = '/api/inventory', refreshInterval = 30000) => {
+export const useRealTimeData = (apiUrl = '/api/inventory', refreshInterval = 5000) => {
   const [data, setData] = useState([]);
   const [lastUpdate, setLastUpdate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
