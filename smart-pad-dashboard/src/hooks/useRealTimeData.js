@@ -26,8 +26,8 @@ export const useRealTimeData = (apiUrl = '/api/inventory', refreshInterval = 300
           building: locationToBuilding(item.location),
           floor: locationToFloor(item.location),
           location: '여자화장실',
-          currentStock: item.quantity || 0,
-          maxStock: 20,
+          currentStock: item.stock ?? 0,
+          maxStock: 18,
           status: item.status || 'normal',
           lastUpdated: item.last_updated || new Date().toISOString(),
           dailyUsage: Math.floor(Math.random() * 30) + 10 // 임시 더미값

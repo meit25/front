@@ -10,7 +10,7 @@ const App = () => {
   const [selectedBuilding, setSelectedBuilding] = useState('all');
   
   // 기존 useStorageData를 useRealTimeData로 변경
-  const { data: storageData, lastUpdate, isLoading, error, refresh } = useRealTimeData('/api/inventory', 30000);
+  const { data: storageData, lastUpdate, isLoading, error, refresh } = useRealTimeData('/api/dashboard', 30000);
 
   const filteredData = selectedBuilding === 'all' 
     ? storageData 
