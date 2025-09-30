@@ -36,6 +36,7 @@ export const PredictionPage = () => {
   { date: "2025-09-30", stock: 14 }
 ]);
   const [forecast, setForecast] = useState([]);
+  const [aiInsights, setAiInsights] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedBuilding, setSelectedBuilding] = useState("학생회관 2층");
@@ -56,6 +57,7 @@ export const PredictionPage = () => {
       });
       if (res.data.success) {
         setForecast(res.data.forecast);
+        setAiInsights(res.data.insights);
       }
     } catch (err) {
       console.error("예측 API 오류:", err);
@@ -290,27 +292,59 @@ export const PredictionPage = () => {
             </div>
           </div>
 
-          {/* AI 인사이트 */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
-              <Brain className="w-5 h-5" />
-              AI 분석 인사이트
-            </h4>
-            <ul className="space-y-2 text-sm text-blue-800">
-              <li className="flex items-start gap-2">
-                <span className="text-blue-600 mt-1">•</span>
-                <span>일일 평균 {((history[0].stock - history[history.length-1].stock) / history.length).toFixed(1)}개씩 감소하는 추세입니다.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-blue-600 mt-1">•</span>
-                <span>현재 사용 패턴이 유지될 경우 {depletionInfo ? `${depletionInfo.days}일 후` : '일주일 이내'} 보충이 필요합니다.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-blue-600 mt-1">•</span>
-                <span>안정적인 재고 유지를 위해 {depletionInfo && depletionInfo.days > 2 ? '2일 전' : '즉시'} 보충을 권장합니다.</span>
-              </li>
-            </ul>
-          </div>
+          {/* AI 인사이트 - Prophet 모델 기반 */}
+{aiInsights && (
+  <div className="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6">
+    <h4 className="font-semibold text-blue-900 mb-4 flex items-center gap-2">
+      <Brain className="w-5 h-5" />
+      Prophet AI 분석 인사이트
+    </h4>
+    <ul className="space-y-3 text-sm text-blue-800">
+      <li className="flex items-start gap-2">
+        <span className="text-blue-600 mt-1">•</span>
+        <span>
+          Prophet 모델 분석 결과, 일평균 <strong>{aiInsights.daily_avg_change}개</strong>씩 
+          {aiInsights.trend_direction}하는 패턴이 감지되었습니다.
+        </span>
+      </li>
+      
+      {aiInsights.refill_detected && (
+        <li className="flex items-start gap-2">
+          <span className="text-blue-600 mt-1">•</span>
+          <span>
+            {aiInsights.refill_date}에 보충 이벤트가 감지되어, 
+            보충 전후 사용 패턴 변화를 반영한 예측입니다.
+          </span>
+        </li>
+      )}
+      
+      {aiInsights.days_until_depletion && (
+        <li className="flex items-start gap-2">
+          <span className="text-blue-600 mt-1">•</span>
+          <span>
+            현재 추세가 지속될 경우 약 <strong>{aiInsights.days_until_depletion}일 후</strong> 
+            재고 소진이 예상됩니다.
+          </span>
+        </li>
+      )}
+      
+      <li className="flex items-start gap-2">
+        <span className="text-blue-600 mt-1">•</span>
+        <span>
+          예측 신뢰구간 폭은 ±{aiInsights.uncertainty_range}개로, 
+          {aiInsights.data_quality === "양호" ? "충분한 데이터로 안정적인" : "제한된 데이터로 보수적인"} 예측이 가능합니다.
+        </span>
+      </li>
+    </ul>
+    
+    <div className="mt-4 pt-4 border-t border-blue-200">
+      <p className="text-xs text-blue-600">
+        * 이 인사이트는 Prophet 시계열 모델이 {aiInsights.data_points}일간의 
+        데이터를 분석하여 생성한 결과입니다.
+      </p>
+    </div>
+  </div>
+)}
         </div>
       )}
     </div>
