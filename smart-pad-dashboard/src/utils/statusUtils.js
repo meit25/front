@@ -12,7 +12,7 @@ export const getStatusConfig = (status) => {
       };
     case 'low': 
       return { 
-        color: 'from-orange-400 to-orange-400', 
+        color: 'from-orange-400 to-orange-600', 
         textColor: 'text-white', 
         icon: <AlertTriangle className="w-6 h-6" />,
         label: '부족',
@@ -37,11 +37,14 @@ export const getStatusConfig = (status) => {
   }
 };
 
+// ✅ undefined/null 방어 로직 강화
 export const getStorageStats = (storageData) => {
-  const totalBoxes = storageData.length;
-  const normalBoxes = storageData.filter(item => item.status === 'normal').length;
-  const lowBoxes = storageData.filter(item => item.status === 'low').length;
-  const emptyBoxes = storageData.filter(item => item.status === 'empty').length;
+  const data = Array.isArray(storageData) ? storageData : [];
+
+  const totalBoxes = data.length;
+  const normalBoxes = data.filter(item => item.status === 'normal').length;
+  const lowBoxes = data.filter(item => item.status === 'low').length;
+  const emptyBoxes = data.filter(item => item.status === 'empty').length;
 
   return { totalBoxes, normalBoxes, lowBoxes, emptyBoxes };
 };

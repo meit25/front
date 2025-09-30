@@ -3,7 +3,10 @@ import { ChevronRight } from 'lucide-react';
 import { StatusCard } from '../ui';
 
 export const EmergencyStatus = ({ filteredData }) => {
-  const emergencyItems = filteredData
+  // ✅ undefined/null 방어
+  const safeData = Array.isArray(filteredData) ? filteredData : [];
+
+  const emergencyItems = safeData
     .filter(item => item.status === 'empty' || item.status === 'low')
     .slice(0, 4);
 

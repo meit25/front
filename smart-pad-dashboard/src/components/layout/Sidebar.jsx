@@ -3,10 +3,12 @@ import { Home, ClipboardList, TrendingUp, Settings, Building2 } from 'lucide-rea
 
 export const Sidebar = ({ currentPage, setCurrentPage }) => {
   const menuItems = [
-    { id: 'dashboard', name: '대시보드', icon: Home },
-    { id: 'manage', name: '보관함 관리', icon: ClipboardList },
-    { id: 'analysis', name: '사용량 분석', icon: TrendingUp },
-  ];
+  { id: 'dashboard', name: '대시보드', icon: Home },
+  { id: 'manage', name: '보관함 관리', icon: ClipboardList },
+  { id: 'analysis', name: '사용량 분석', icon: TrendingUp },
+  { id: 'predict', name: 'AI 예측', icon: Settings }
+];
+
 
   return (
     <div className="fixed left-0 top-0 h-full w-64 bg-white shadow-lg z-50">

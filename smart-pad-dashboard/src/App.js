@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Sidebar } from './components/layout';
-import { HomePage, ManagePage, AnalysisPage } from './components/pages';
+import { HomePage, ManagePage, AnalysisPage} from './components/pages';
 import { useRealTimeData } from './hooks/useRealTimeData';
 import { getTimeAgo, getConnectionStatus } from './utils/timeUtils';
 import { RefreshCw } from 'lucide-react';
+import { PredictionPage } from "./components/pages/PredictionPage";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -40,6 +41,8 @@ const App = () => {
         );
       case 'analysis':
         return <AnalysisPage />;
+         case "predict": // ✅ 새로 추가
+      return <PredictionPage />; 
       default:
         return <HomePage />;
     }

@@ -3,7 +3,9 @@ import { CheckCircle, AlertTriangle, XCircle, Building } from 'lucide-react';
 import { getStorageStats } from '../../utils/statusUtils';
 
 export const OverallStatus = ({ storageData }) => {
-  const { totalBoxes, normalBoxes, lowBoxes, emptyBoxes } = getStorageStats(storageData);
+  // ✅ undefined/null 방어
+  const safeData = Array.isArray(storageData) ? storageData : [];
+  const { totalBoxes, normalBoxes, lowBoxes, emptyBoxes } = getStorageStats(safeData);
   
   const statusCards = [
     {
@@ -45,7 +47,10 @@ export const OverallStatus = ({ storageData }) => {
       {statusCards.map((card, index) => {
         const Icon = card.icon;
         return (
-          <div key={index} className={`${card.color} rounded-xl p-6 ${card.textColor} shadow-lg`}>
+          <div
+            key={index}
+            className={`${card.color} rounded-xl p-6 ${card.textColor} shadow-lg`}
+          >
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-sm opacity-80 mb-1">{card.title}</p>
